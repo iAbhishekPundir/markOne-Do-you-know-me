@@ -1,9 +1,11 @@
-const { question } = require("readline-sync");
-var readlineSync = require("readline-sync");
+import chalk from 'chalk';
+import readlineSync from 'readline-sync';
+
 //input the name
-var username = readlineSync.question("Write your name: ");
-console.log("Welcome! " + username + "...This is Abhishek\n");
-console.log("Let's play a quiz to check how much do you know about me.\n");
+var username = readlineSync.question("Please type your name: ");
+console.log(chalk.blue("Welcome! ") + chalk.green(username) +
+  chalk.blue("...This is " + chalk.green("Abhishek\n")));
+console.log(chalk.yellow("Let's play a quiz to check how much do you know about me.\n"));
 
 
 //variable to store score
@@ -80,11 +82,11 @@ function quiz(question, answer) {
   var useranswer = readlineSync.question(question);
   if (useranswer.toLowerCase() === answer.toLowerCase()) {
     score++;
-    console.log("right");
+    console.log(chalk.green("right"));
 
   }
   else {
-    console.log("wrong");
+    console.log(chalk.red("wrong"));
 
   }
 }
@@ -107,12 +109,12 @@ function updateLeaderBoard() {
 }
 
 
-console.log("Your final score: " + score + " out " + questions.length);
-console.log("\n===========Game Over===========");
+console.log(chalk.yellow("Your final score: ") + chalk.blue(score) + chalk.yellow(" out of ") + chalk.blue(questions.length));
+console.log("\n===========Game Over===========\n");
 
 for (var i = 0; i < highScorer.length; i++) {
   if (score > highScorer[i].highScore) {
-    console.log("Awesome..." + username + "!" + " You have just broken the high score");
+    console.log(chalk.yellow("Awesome...") + chalk.green(username) + "!" + chalk.yellow(" You have just broken the high score"));
     break;
   }
 }
@@ -121,14 +123,13 @@ var newPlayer = {
   highScore: score
 };
 highScorer.push(newPlayer);
+
 function leaders() {
-  console.log("\nFinal LeaderBoard is: ");
+  console.log(chalk.blue("\nLeaderBoard : "));
   for (var i = 0; i < highScorer.length; i++) {
     var name = highScorer[i].name;
     var scored = highScorer[i].highScore;
-    console.log(name + " : " + scored);
-    console.log(highScorer.length);
+    console.log(chalk.green(name) + " : " + chalk.yellow(scored));
   }
 }
 leaders();
-console.log(highScorer);
